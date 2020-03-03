@@ -6,7 +6,6 @@ public class PlayerController : MonoBehaviour
 {
 
     public float speed;
-    float input;
     bool onColision = false;
 
     // Start is called before the first frame update
@@ -18,10 +17,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        input = Input.GetAxis("Vertical");
+        MovePaddle(Input.GetAxisRaw("Vertical"));
+    }
 
-        if (!onColision)
-            transform.Translate(new Vector3(0.0f, speed * Time.deltaTime * input));
+    private void MovePaddle(float input)
+    {
+        transform.Translate(new Vector3(0.0f, speed * Time.deltaTime * input));
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -29,6 +30,11 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Border")
         {
             Debug.Log("Collision -> Border");
+        }
+
+        if (collision.gameObject.tag == "Player")
+        {
+            Debug.Log("Collision -> Player");
         }
     }
 }
