@@ -5,8 +5,7 @@ using UnityEngine;
 public class BallBehavior : MonoBehaviour
 {
 
-    public int xDirection, yDirection, xAngle, yAngle;
-    public float speed;
+    public float speed, xDirection, yDirection;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +25,7 @@ public class BallBehavior : MonoBehaviour
 
     }
 
+    //Based on trigonometric table
     public void SetBallDirection(BallMoviments move)
     {
         switch (move)
@@ -41,6 +41,8 @@ public class BallBehavior : MonoBehaviour
                 break;
 
             case BallMoviments.UP30RIGHT:
+                xDirection = Mathf.Sqrt(3) / 2;
+                yDirection = 1f / 2;
                 break;
 
             case BallMoviments.UP45RIGHT:
@@ -48,9 +50,13 @@ public class BallBehavior : MonoBehaviour
                 break;
 
             case BallMoviments.UP60RIGHT:
+                xDirection = 1f / 2;
+                yDirection = Mathf.Sqrt(3) / 2;
                 break;
 
             case BallMoviments.UP30LEFT:
+                xDirection = -Mathf.Sqrt(3) / 2;
+                yDirection = 1f / 2;
                 break;
 
             case BallMoviments.UP45LEFT:
@@ -59,9 +65,13 @@ public class BallBehavior : MonoBehaviour
                 break;
 
             case BallMoviments.UP60LEFT:
+                xDirection = -1f / 2;
+                yDirection = Mathf.Sqrt(3) / 2;
                 break;
 
             case BallMoviments.DOWN30RIGHT:
+                xDirection = Mathf.Sqrt(3) / 2;
+                yDirection = -1f / 2;
                 break;
 
             case BallMoviments.DOWN45RIGHT:
@@ -70,9 +80,13 @@ public class BallBehavior : MonoBehaviour
                 break;
 
             case BallMoviments.DOWN60RIGHT:
+                xDirection = 1f / 2;
+                yDirection = -Mathf.Sqrt(3) / 2;
                 break;
 
             case BallMoviments.DOWN30LEFT:
+                xDirection = -Mathf.Sqrt(3) / 2;
+                yDirection = -1f / 2;
                 break;
 
             case BallMoviments.DOWN45LEFT:
@@ -80,6 +94,8 @@ public class BallBehavior : MonoBehaviour
                 break;
 
             case BallMoviments.DOWN60LEFT:
+                xDirection = -1f / 2;
+                yDirection = -Mathf.Sqrt(3) / 2;
                 break;
 
             default:
@@ -95,8 +111,57 @@ public class BallBehavior : MonoBehaviour
 
         if (collision.gameObject.tag == "Player")
         {
-            xDirection = -xDirection;
-            speed += 0.5f;
+            float hitPoint = GetHitPointHeight(collision.gameObject.transform);
+            Debug.Log(hitPoint);
+
+            SetBallDirection(SetBallMoviment(
+                hitPoint, 
+                collision.gameObject.GetComponent<SpriteRenderer>().bounds.size.y,
+                collision.gameObject.name));
+
+            //xDirection = -xDirection;
+            speed += 0.3f;
         }
+    }
+
+    private BallMoviments SetBallMoviment(float hitPoint, float collisionH, string player)
+    {
+        float collisionHeight = collisionH / 2;
+
+        if(hitPoint >= collisionHeight - 1 * (collisionH / 5))
+        {
+            return player == "Player1" ? BallMoviments.UP60RIGHT : BallMoviments.UP60LEFT;
+        }
+        else if(hitPoint >= collisionHeight - 2 * (collisionH / 5))
+        {
+            return player == "Player1" ? BallMoviments.UP30RIGHT : BallMoviments.UP30LEFT;
+        }
+        else if(hitPoint >= collisionHeight - 3 * (collisionH/ 5))
+        {
+            return player == "Player1" ? BallMoviments.STRAIGHTRIGHT : BallMoviments.STRAIGHTLEFT;
+        }
+        else if (hitPoint >= collisionHeight - 4 * (collisionH / 5))
+        {
+            return player == "Player1" ? BallMoviments.DOWN30RIGHT : BallMoviments.DOWN30LEFT;
+        }
+        else if (hitPoint < collisionHeight - 4 * (collisionH / 5))
+        {
+            return player == "Player1" ? BallMoviments.DOWN60RIGHT : BallMoviments.DOWN60LEFT;
+        }
+
+        return player == "Player1" ? BallMoviments.STRAIGHTRIGHT : BallMoviments.STRAIGHTLEFT;
+    }
+
+    private float GetHitPointHeight(Transform gameObj)
+    {
+        float hitPoint, yDistance;
+
+        yDistance = this.transform.position.y - gameObj.position.y;
+
+        hitPoint  = (yDistance * 2) / gameObj.GetComponent<SpriteRenderer>().bounds.size.y;
+
+        Debug.Log(gameObj.GetComponent<SpriteRenderer>().bounds.size.y);
+
+        return hitPoint;
     }
 }
