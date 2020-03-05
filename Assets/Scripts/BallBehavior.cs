@@ -5,24 +5,28 @@ using UnityEngine;
 public class BallBehavior : MonoBehaviour
 {
 
-    public float speed, xDirection, yDirection;
+    public float speed;
+    public AudioClip[] audioClips;
+
+    private float xDirection, yDirection;
+    private AudioSource ballSounds;
 
     // Start is called before the first frame update
     void Start()
     {
-        //xDirection = yDirection = xAngle = yAngle = 1;
-        speed = 2;
+        speed = 2.5f;
+        ballSounds = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        transform.Translate(new Vector3(xDirection, yDirection) * speed * Time.deltaTime);
+        MoveBall();
     }
 
     private void MoveBall()
     {
-
+        transform.Translate(new Vector3(xDirection, yDirection) * speed * Time.deltaTime);
     }
 
     //Based on trigonometric table
@@ -103,14 +107,24 @@ public class BallBehavior : MonoBehaviour
         }
     }
 
+    private void PlayBallSFX(AudioClip audioClip)
+    {
+        ballSounds.clip = audioClip;
+        ballSounds.Play();
+    }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Border")
+        {
             yDirection = -yDirection;
+            PlayBallSFX(audioClips[0]);
+        }
 
         if (collision.gameObject.tag == "Player")
         {
+            PlayBallSFX(audioClips[1]);
             float hitPoint = GetHitPointHeight(collision.gameObject.transform);
             Debug.Log(hitPoint);
 

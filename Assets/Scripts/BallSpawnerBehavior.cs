@@ -11,31 +11,36 @@ public class BallSpawnerBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        LaunchBallByScorer(1);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        //LaunchBallByScorer(1);
+        LaunchBallRandomly();
     }
 
     private void LaunchBallByScorer(int player)
     {
+        BallMoviments moviment;
+
         if (player == 1)
-        {
-            Instantiate(ball, spawners[0].transform);
-            ball.GetComponent<BallBehavior>().SetBallDirection(BallMoviments.UP45LEFT);
-        } else
-        {
-            Instantiate(ball, spawners[0].transform);
-            ball.GetComponent<BallBehavior>().SetBallDirection(BallMoviments.UP45RIGHT);
-        }
+            moviment = BallMoviments.UP45LEFT;
+        else
+            moviment = BallMoviments.UP45RIGHT;
+
+        ball = Instantiate(ball, spawners[0].transform);
+        ball.GetComponent<BallBehavior>().SetBallDirection(moviment);
     }
 
     private void LaunchBallRandomly()
     {
+        BallMoviments moviment;
+        int rand = Random.Range(0, 2);
 
+        if (rand == 0)
+            moviment = BallMoviments.DOWN45LEFT;
+        else
+            moviment = BallMoviments.DOWN45RIGHT;
+
+        ball = Instantiate(ball, spawners[0].transform);
+        ball.GetComponent<BallBehavior>().SetBallDirection(moviment);
+        
     }
 
     private int ChooseBallSpawner()
