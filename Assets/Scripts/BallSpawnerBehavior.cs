@@ -8,11 +8,22 @@ public class BallSpawnerBehavior : MonoBehaviour
     public GameObject[] spawners;
     public GameObject ball;
 
+    private BallBehavior ballBehavior;
+
     // Start is called before the first frame update
     void Start()
     {
-        //LaunchBallByScorer(1);
         LaunchBallRandomly();
+    }
+
+    void Update()
+    {
+        if (ballBehavior.IsToRestart)
+        {
+            ballBehavior.IsToRestart = false;
+            ball.transform.position = spawners[0].transform.position;
+            LaunchBallByScorer(ballBehavior.PlayerScorer);
+        }
     }
 
     private void LaunchBallByScorer(int player)
@@ -20,12 +31,13 @@ public class BallSpawnerBehavior : MonoBehaviour
         BallMoviments moviment;
 
         if (player == 1)
-            moviment = BallMoviments.UP45LEFT;
+            moviment = BallMoviments.DOWN45RIGHT;
         else
-            moviment = BallMoviments.UP45RIGHT;
+            moviment = BallMoviments.DOWN45LEFT;
 
-        ball = Instantiate(ball, spawners[0].transform);
-        ball.GetComponent<BallBehavior>().SetBallDirection(moviment);
+        if (GameObject.FindGameObjectsWithTag("Ball").Length == 0) InitiateBall();
+
+        ballBehavior.SetBallDirection(moviment);
     }
 
     private void LaunchBallRandomly()
@@ -38,9 +50,16 @@ public class BallSpawnerBehavior : MonoBehaviour
         else
             moviment = BallMoviments.DOWN45RIGHT;
 
-        ball = Instantiate(ball, spawners[0].transform);
-        ball.GetComponent<BallBehavior>().SetBallDirection(moviment);
+        if (GameObject.FindGameObjectsWithTag("Ball").Length == 0) InitiateBall();
+
+        ballBehavior.SetBallDirection(moviment);
         
+    }
+
+    private void InitiateBall()
+    {
+        ball = Instantiate(ball, spawners[0].transform);
+        ballBehavior = ball.GetComponent<BallBehavior>();
     }
 
     private int ChooseBallSpawner()

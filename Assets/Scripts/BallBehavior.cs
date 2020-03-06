@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BallBehavior : MonoBehaviour
 {
@@ -8,12 +9,19 @@ public class BallBehavior : MonoBehaviour
     public float speed;
     public AudioClip[] audioClips;
 
+    private GameManager gameManager;
+
+    public bool IsToRestart { get; set; }
+    public int PlayerScorer { get; set; }
+
     private float xDirection, yDirection;
     private AudioSource ballSounds;
 
     // Start is called before the first frame update
     void Start()
     {
+        IsToRestart = false;
+        gameManager = GameManager.GetGameManagerInstace();
         speed = 2.5f;
         ballSounds = GetComponent<AudioSource>();
     }
@@ -22,6 +30,9 @@ public class BallBehavior : MonoBehaviour
     void FixedUpdate()
     {
         MoveBall();
+
+        if (gameManager.P1Score == 5) PlayBallSFX(audioClips[3]);
+        if (gameManager.P2Score == 5) PlayBallSFX(audioClips[4]);
     }
 
     private void MoveBall()
@@ -135,6 +146,23 @@ public class BallBehavior : MonoBehaviour
 
             //xDirection = -xDirection;
             speed += 0.3f;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Goal")
+        {
+            GameObject goal = collision.gameObject;
+
+            if (goal.name == "Player1Goal")
+                PlayerScorer = 2;
+            else
+                PlayerScorer = 1;
+
+            IsToRestart = true;
+            gameManager.AddPointToPlayer(PlayerScorer);
+            PlayBallSFX(audioClips[2]);
         }
     }
 
