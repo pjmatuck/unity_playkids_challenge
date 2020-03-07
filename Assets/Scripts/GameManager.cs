@@ -6,68 +6,114 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public Text player1Score, player2Score;
-    public GameObject EndGamePanel;
+    private const int PLAYER1 = 1;
+    private const int PLAYER2 = 2;
 
-    private static GameManager _gameManagerinstance;
+    [SerializeField]
+    private UIManager uiManager;
 
-    int p1Score, p2Score;
-    public int P1Score { get { return p1Score; } }
-    public int P2Score { get { return p2Score; } }
+    [SerializeField]
+    private int pointToEndGame;
+
+    [SerializeField]
+    private float waitTimeForEndGame;
+    private float timeToEnd;
+
+    private static GameManager gameManagerInstance;
+    public static GameState GameState { get; private set; }
+
+    int winner;
+    public int P1Score { get; private set; }
+    public int P2Score { get; private set; }
 
     private void Awake()
     {
-        _gameManagerinstance = GetComponent<GameManager>();
+        gameManagerInstance = GetComponent<GameManager>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        p1Score = 0;
-        player1Score.text = p1Score.ToString();
-        p2Score = 0;
-        player2Score.text = p2Score.ToString();
+        P1Score = 0;
+        P2Score = 0;
+
+        uiManager.UpdateGameScore(PLAYER1, P1Score);
+        uiManager.UpdateGameScore(PLAYER2, P2Score);
+
+        GameState = GameState.START;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R)) RestartMainScene();
+        switch (GameState)
+        {
+            case GameState.START:
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    uiManager.ShowPressStartScreen(false);
+                    GameState = GameState.RUNNING;
+                }
+                break;
+            case GameState.RUNNING:
+                if (P1Score == pointToEndGame || P2Score == pointToEndGame)
+                {
+                    timeToEnd += Time.deltaTime;
+                    if(timeToEnd >= waitTimeForEndGame)
+                    {
+                        timeToEnd = 0;
+                        GameState = GameState.END;
+                        uiManager.ShowEndGameScreen(true, winner);
+                    }
+                }
+                break;
+            case GameState.PAUSE:
+                break;
+            case GameState.END:
+                break;
+            default:
+                break;
+        }
 
-        if (p1Score == 5 || p2Score == 5) RestartMainScene();
-            
+        //For development mode
+        if (Input.GetKeyDown(KeyCode.R)) RestartMainScene();
     }
 
     public void AddPointToPlayer(int player)
     {
-        if(player == 1)
+        if(player == PLAYER1)
         {
-            p1Score++;
-            player1Score.text = p1Score.ToString();
+            P1Score++;
+            uiManager.UpdateGameScore(player, P1Score);
         } else
         {
-            p2Score++;
-            player2Score.text = p2Score.ToString();
+            P2Score++;
+            uiManager.UpdateGameScore(player, P2Score);
         }
+
+        if (P1Score == pointToEndGame)
+            winner = PLAYER1;
+        else if (P2Score == pointToEndGame)
+            winner = PLAYER2;
     }
 
     public static GameManager GetGameManagerInstace()
     {
-        return _gameManagerinstance;
+        return gameManagerInstance;
     }
 
-    private void RestartMainScene()
-    {
-        SceneManager.LoadScene("_MainScene");
-    }
 
     public void Restart()
     {
-
+        RestartMainScene();
     }
 
     public void Quit()
     {
-
+        Application.Quit(0);
+    }
+    private void RestartMainScene()
+    {
+        SceneManager.LoadScene("_MainScene");
     }
 }

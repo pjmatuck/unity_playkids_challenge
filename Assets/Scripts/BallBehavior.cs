@@ -5,8 +5,10 @@ using UnityEngine.UI;
 
 public class BallBehavior : MonoBehaviour
 {
+    [SerializeField]
+    private float startSpeed;
+    private float speed;
 
-    public float speed;
     public AudioClip[] audioClips;
 
     private GameManager gameManager;
@@ -22,7 +24,7 @@ public class BallBehavior : MonoBehaviour
     {
         IsToRestart = false;
         gameManager = GameManager.GetGameManagerInstace();
-        speed = 2.5f;
+        speed = startSpeed;
         ballSounds = GetComponent<AudioSource>();
     }
 
@@ -30,9 +32,6 @@ public class BallBehavior : MonoBehaviour
     void FixedUpdate()
     {
         MoveBall();
-
-        if (gameManager.P1Score == 5) PlayBallSFX(audioClips[3]);
-        if (gameManager.P2Score == 5) PlayBallSFX(audioClips[4]);
     }
 
     private void MoveBall()
@@ -147,6 +146,12 @@ public class BallBehavior : MonoBehaviour
             //xDirection = -xDirection;
             speed += 0.3f;
         }
+
+        //It should happen only on Start Screen when the Goals are standard colliders, not triggers.
+        if(collision.gameObject.tag == "Goal")
+        {
+            xDirection = -xDirection;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -205,5 +210,15 @@ public class BallBehavior : MonoBehaviour
         Debug.Log(gameObj.GetComponent<SpriteRenderer>().bounds.size.y);
 
         return hitPoint;
+    }
+
+    public void SetSpeed(float newSpeed)
+    {
+        this.startSpeed = newSpeed;
+    }
+
+    public void RestartSpeed()
+    {
+        speed = startSpeed;
     }
 }

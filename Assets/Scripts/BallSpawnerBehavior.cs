@@ -6,7 +6,9 @@ public class BallSpawnerBehavior : MonoBehaviour
 {
 
     public GameObject[] spawners;
-    public GameObject ball;
+
+    [SerializeField]
+    private GameObject ball;
 
     private BallBehavior ballBehavior;
 
@@ -21,6 +23,7 @@ public class BallSpawnerBehavior : MonoBehaviour
         if (ballBehavior.IsToRestart)
         {
             ballBehavior.IsToRestart = false;
+            ballBehavior.RestartSpeed();
             ball.transform.position = spawners[0].transform.position;
             LaunchBallByScorer(ballBehavior.PlayerScorer);
         }
@@ -28,6 +31,8 @@ public class BallSpawnerBehavior : MonoBehaviour
 
     private void LaunchBallByScorer(int player)
     {
+        RestartBallPosition();
+
         BallMoviments moviment;
 
         if (player == 1)
@@ -40,7 +45,7 @@ public class BallSpawnerBehavior : MonoBehaviour
         ballBehavior.SetBallDirection(moviment);
     }
 
-    private void LaunchBallRandomly()
+    public void LaunchBallRandomly()
     {
         BallMoviments moviment;
         int rand = Random.Range(0, 2);
@@ -53,12 +58,11 @@ public class BallSpawnerBehavior : MonoBehaviour
         if (GameObject.FindGameObjectsWithTag("Ball").Length == 0) InitiateBall();
 
         ballBehavior.SetBallDirection(moviment);
-        
     }
 
     private void InitiateBall()
     {
-        ball = Instantiate(ball, spawners[0].transform);
+        ball = Instantiate(ball, spawners[ChooseBallSpawner()].transform);
         ballBehavior = ball.GetComponent<BallBehavior>();
     }
 
@@ -70,5 +74,15 @@ public class BallSpawnerBehavior : MonoBehaviour
         int spawnerIndex = Random.Range(0, spawners.Length - 1);
 
         return spawnerIndex;
+    }
+
+    public GameObject GetBallInstance()
+    {
+        return ball;
+    }
+
+    private void RestartBallPosition()
+    {
+        ball.transform.position = spawners[0].transform.position;
     }
 }

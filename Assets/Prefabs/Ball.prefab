@@ -95,13 +95,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab3fdfd3a52e59149860f336aab15187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  startSpeed: 3
   audioClips:
   - {fileID: 8300000, guid: 6b21268788f2f0d4c944f8e7ef2b7a89, type: 3}
   - {fileID: 8300000, guid: 2bd99b45a544e0243aac8e06a697a161, type: 3}
   - {fileID: 8300000, guid: 47f50cda101947445af96dd7c7c4996d, type: 3}
-  - {fileID: 8300000, guid: cbb18417117bd564b8a26902d02e983f, type: 3}
-  - {fileID: 8300000, guid: 125665ee5ff20a346bc6f1a092db1848, type: 3}
 --- !u!61 &61555701559818448
 BoxCollider2D:
   m_ObjectHideFlags: 0
