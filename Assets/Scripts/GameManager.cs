@@ -9,14 +9,12 @@ public class GameManager : MonoBehaviour
     private const int PLAYER1 = 1;
     private const int PLAYER2 = 2;
 
-    [SerializeField]
-    private UIManager uiManager;
+    public UIManager uiManager;
+    public BallSpawnerBehavior ballSpawner;
 
-    [SerializeField]
-    private int pointToEndGame;
+    public int pointToEndGame;
 
-    [SerializeField]
-    private float waitTimeForEndGame;
+    public float waitTimeForEndGame;
     private float timeToEnd;
 
     private static GameManager gameManagerInstance;
@@ -52,6 +50,7 @@ public class GameManager : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     uiManager.ShowPressStartScreen(false);
+                    ballSpawner.LaunchBallRandomly();
                     GameState = GameState.RUNNING;
                 }
                 break;

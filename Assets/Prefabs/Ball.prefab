@@ -14,13 +14,13 @@ GameObject:
   - component: {fileID: 61555701559818448}
   - component: {fileID: 50353811574829236}
   - component: {fileID: 82357937365028470}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ball
   m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &902142937576539410
 Transform:
   m_ObjectHideFlags: 0

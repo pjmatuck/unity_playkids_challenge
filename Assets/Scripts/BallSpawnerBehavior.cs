@@ -40,7 +40,7 @@ public class BallSpawnerBehavior : MonoBehaviour
         else
             moviment = BallMoviments.DOWN45LEFT;
 
-        if (GameObject.FindGameObjectsWithTag("Ball").Length == 0) InitiateBall();
+        InitiateBall();
 
         ballBehavior.SetBallDirection(moviment);
     }
@@ -55,14 +55,20 @@ public class BallSpawnerBehavior : MonoBehaviour
         else
             moviment = BallMoviments.DOWN45RIGHT;
 
-        if (GameObject.FindGameObjectsWithTag("Ball").Length == 0) InitiateBall();
+        InitiateBall();
 
         ballBehavior.SetBallDirection(moviment);
     }
 
     private void InitiateBall()
     {
-        ball = Instantiate(ball, spawners[ChooseBallSpawner()].transform);
+        if (GameObject.FindGameObjectsWithTag("Ball").Length == 0)
+            ball = Instantiate(ball, spawners[ChooseBallSpawner()].transform);
+        else
+            ball = GameObject.FindGameObjectWithTag("Ball");
+
+        if (ball.activeSelf == false) ball.SetActive(true);
+        RestartBallPosition();
         ballBehavior = ball.GetComponent<BallBehavior>();
     }
 

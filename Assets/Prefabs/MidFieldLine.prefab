@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2050152916192415730}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MidFieldLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,6 +53,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MidTrace (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4671599940309047116, guid: 751785e8a3f4f8043bf6cccb919f7891,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8864024772197369431, guid: 751785e8a3f4f8043bf6cccb919f7891,
         type: 3}
@@ -129,6 +134,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MidTrace (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 4671599940309047116, guid: 751785e8a3f4f8043bf6cccb919f7891,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8864024772197369431, guid: 751785e8a3f4f8043bf6cccb919f7891,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -203,6 +213,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MidTrace (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4671599940309047116, guid: 751785e8a3f4f8043bf6cccb919f7891,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8864024772197369431, guid: 751785e8a3f4f8043bf6cccb919f7891,
         type: 3}
@@ -279,6 +294,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MidTrace
       objectReference: {fileID: 0}
+    - target: {fileID: 4671599940309047116, guid: 751785e8a3f4f8043bf6cccb919f7891,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8864024772197369431, guid: 751785e8a3f4f8043bf6cccb919f7891,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -353,6 +373,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MidTrace (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4671599940309047116, guid: 751785e8a3f4f8043bf6cccb919f7891,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8864024772197369431, guid: 751785e8a3f4f8043bf6cccb919f7891,
         type: 3}
@@ -429,6 +454,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MidTrace (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 4671599940309047116, guid: 751785e8a3f4f8043bf6cccb919f7891,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8864024772197369431, guid: 751785e8a3f4f8043bf6cccb919f7891,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -503,6 +533,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MidTrace (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4671599940309047116, guid: 751785e8a3f4f8043bf6cccb919f7891,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8864024772197369431, guid: 751785e8a3f4f8043bf6cccb919f7891,
         type: 3}
@@ -579,6 +614,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MidTrace (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 4671599940309047116, guid: 751785e8a3f4f8043bf6cccb919f7891,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8864024772197369431, guid: 751785e8a3f4f8043bf6cccb919f7891,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -653,6 +693,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MidTrace (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4671599940309047116, guid: 751785e8a3f4f8043bf6cccb919f7891,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8864024772197369431, guid: 751785e8a3f4f8043bf6cccb919f7891,
         type: 3}
@@ -729,6 +774,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MidTrace (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4671599940309047116, guid: 751785e8a3f4f8043bf6cccb919f7891,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8864024772197369431, guid: 751785e8a3f4f8043bf6cccb919f7891,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -804,6 +854,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MidTrace (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4671599940309047116, guid: 751785e8a3f4f8043bf6cccb919f7891,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8864024772197369431, guid: 751785e8a3f4f8043bf6cccb919f7891,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -878,6 +933,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MidTrace (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4671599940309047116, guid: 751785e8a3f4f8043bf6cccb919f7891,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8864024772197369431, guid: 751785e8a3f4f8043bf6cccb919f7891,
         type: 3}
