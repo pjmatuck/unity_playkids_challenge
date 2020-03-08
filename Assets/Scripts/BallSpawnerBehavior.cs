@@ -62,12 +62,15 @@ public class BallSpawnerBehavior : MonoBehaviour
 
     private void InitiateBall()
     {
-        if (GameObject.FindGameObjectsWithTag("Ball").Length == 0)
-            ball = Instantiate(ball, spawners[ChooseBallSpawner()].transform);
-        else
-            ball = GameObject.FindGameObjectWithTag("Ball");
+        //if (GameObject.FindGameObjectsWithTag("Ball").Length == 0)
+        //    ball = Instantiate(ball, spawners[ChooseBallSpawner()].transform);
+        //else
+        //    ball = GameObject.FindGameObjectWithTag("Ball");
+
+        ball.transform.position = spawners[ChooseBallSpawner()].transform.position;
 
         if (ball.activeSelf == false) ball.SetActive(true);
+
         RestartBallPosition();
         ballBehavior = ball.GetComponent<BallBehavior>();
     }
