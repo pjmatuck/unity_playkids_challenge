@@ -6,14 +6,17 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    //References to players
     private const int PLAYER1 = 1;
     private const int PLAYER2 = 2;
 
     public UIManager uiManager;
     public BallSpawnerBehavior ballSpawner;
 
+    //Number of points to finish game
     public int pointToEndGame;
 
+    //Delay for end game
     public float waitTimeForEndGame;
     private float timeToEnd;
 
@@ -29,7 +32,6 @@ public class GameManager : MonoBehaviour
         gameManagerInstance = GetComponent<GameManager>();
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         P1Score = 0;
@@ -41,7 +43,6 @@ public class GameManager : MonoBehaviour
         GameState = GameState.START;
     }
 
-    // Update is called once per frame
     void Update()
     {
         switch (GameState)
@@ -66,8 +67,6 @@ public class GameManager : MonoBehaviour
                     }
                 }
                 break;
-            case GameState.PAUSE:
-                break;
             case GameState.END:
                 break;
             default:
@@ -75,9 +74,10 @@ public class GameManager : MonoBehaviour
         }
 
         //For development mode
-        if (Input.GetKeyDown(KeyCode.R)) RestartMainScene();
+        //if (Input.GetKeyDown(KeyCode.R)) RestartMainScene();
     }
 
+    //Update Player Score
     public void AddPointToPlayer(int player)
     {
         if(player == PLAYER1)
@@ -96,6 +96,7 @@ public class GameManager : MonoBehaviour
             winner = PLAYER2;
     }
 
+    //Return GameManager instance for other classes
     public static GameManager GetGameManagerInstace()
     {
         return gameManagerInstance;
@@ -107,12 +108,21 @@ public class GameManager : MonoBehaviour
         RestartMainScene();
     }
 
+    //Only works on mobile
     public void Quit()
     {
         Application.Quit(0);
     }
+
     private void RestartMainScene()
     {
         SceneManager.LoadScene("_MainScene");
     }
+}
+
+public enum GameState
+{
+    START,
+    RUNNING,
+    END
 }

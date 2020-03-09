@@ -20,7 +20,7 @@ public class AIController : MonoBehaviour
 
     void FixedUpdate()
     {
-
+        //Choose AI Strategy
         if (toDecide)
         {
             decision = Random.Range(0, 2);
@@ -30,10 +30,16 @@ public class AIController : MonoBehaviour
 
         switch (decision)
         {
+            /*Strategy: FOLLOWTHEBALL
+             * The AI player follow the ball all the time.
+             */
             case 0:
                 if (ball.position.y > transform.position.y) MovePaddle(1);
                 if (ball.position.y < transform.position.y) MovePaddle(-1);
                 break;
+            /*Strategy: WAITTOATTACK
+             * The AI player wait the ball cross the midfield to follow it.
+             */
             case 1:
                 if (ball.position.x >= 0)
                 {
@@ -44,7 +50,8 @@ public class AIController : MonoBehaviour
             default:
                 break;
         }
-
+        
+        // Keep the last decision until the follow conditions
         if (collided || ball.position.x > transform.position.x + 0.5)
         {
             if (collided) collided = false;

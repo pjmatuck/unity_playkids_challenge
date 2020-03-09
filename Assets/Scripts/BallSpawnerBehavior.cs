@@ -6,13 +6,10 @@ public class BallSpawnerBehavior : MonoBehaviour
 {
 
     public GameObject[] spawners;
-
-    [SerializeField]
-    private GameObject ball;
+    public GameObject ball;
 
     private BallBehavior ballBehavior;
 
-    // Start is called before the first frame update
     void Start()
     {
         LaunchBallRandomly();
@@ -29,13 +26,14 @@ public class BallSpawnerBehavior : MonoBehaviour
         }
     }
 
+    //Put ball on game depending on the scorer player.
     private void LaunchBallByScorer(int player)
     {
         RestartBallPosition();
 
         BallMoviments moviment;
 
-        if (player == 1)
+        if (player == 2)
             moviment = BallMoviments.DOWN45RIGHT;
         else
             moviment = BallMoviments.DOWN45LEFT;
@@ -45,6 +43,7 @@ public class BallSpawnerBehavior : MonoBehaviour
         ballBehavior.SetBallDirection(moviment);
     }
 
+    //Put ball on game randomly.
     public void LaunchBallRandomly()
     {
         BallMoviments moviment;
@@ -60,13 +59,9 @@ public class BallSpawnerBehavior : MonoBehaviour
         ballBehavior.SetBallDirection(moviment);
     }
 
+    //Ball Start configuration 
     private void InitiateBall()
     {
-        //if (GameObject.FindGameObjectsWithTag("Ball").Length == 0)
-        //    ball = Instantiate(ball, spawners[ChooseBallSpawner()].transform);
-        //else
-        //    ball = GameObject.FindGameObjectWithTag("Ball");
-
         ball.transform.position = spawners[ChooseBallSpawner()].transform.position;
 
         if (ball.activeSelf == false) ball.SetActive(true);
@@ -85,6 +80,7 @@ public class BallSpawnerBehavior : MonoBehaviour
         return spawnerIndex;
     }
 
+    //Return used ball instance for others scripts
     public GameObject GetBallInstance()
     {
         return ball;

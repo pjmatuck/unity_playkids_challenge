@@ -7,7 +7,8 @@ public class BallBehavior : MonoBehaviour
 {
     [SerializeField]
     private float startSpeed;
-    private float speed;
+    [SerializeField]
+    private float increaseSpeedRate;
 
     public AudioClip[] audioClips;
 
@@ -19,16 +20,14 @@ public class BallBehavior : MonoBehaviour
     private float xDirection, yDirection;
     private AudioSource ballSounds;
 
-    // Start is called before the first frame update
     void Start()
     {
         IsToRestart = false;
         gameManager = GameManager.GetGameManagerInstace();
-        speed = startSpeed;
+        increaseSpeedRate = startSpeed;
         ballSounds = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         MoveBall();
@@ -36,10 +35,15 @@ public class BallBehavior : MonoBehaviour
 
     private void MoveBall()
     {
-        transform.Translate(new Vector3(xDirection, yDirection) * speed * Time.deltaTime);
+        transform.Translate(new Vector3(xDirection, yDirection) * increaseSpeedRate * Time.deltaTime);
     }
 
-    //Based on trigonometric table
+    /*
+     * This method is based on Trigonometric Table
+     * sin30: 0.5f, sin60: sqrt(3)/2, sin90: 1
+     * cos30: sqrt(3)/2, cos60: 0.5f, cos90: 0
+     * tan45: 1
+     */
     public void SetBallDirection(BallMoviments move)
     {
         switch (move)
@@ -126,12 +130,14 @@ public class BallBehavior : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //Invert y direction if hits the top or bottom walls
         if (collision.gameObject.tag == "Border")
         {
             yDirection = -yDirection;
             PlayBallSFX(audioClips[0]);
         }
 
+        //Every time which hits a player the ball speed is increased
         if (collision.gameObject.tag == "Player")
         {
             PlayBallSFX(audioClips[1]);
@@ -143,8 +149,7 @@ public class BallBehavior : MonoBehaviour
                 collision.gameObject.GetComponent<SpriteRenderer>().bounds.size.y,
                 collision.gameObject.name));
 
-            //xDirection = -xDirection;
-            speed += 0.3f;
+            increaseSpeedRate += 0.3f;
         }
 
         //It should happen only on Start Screen when the Goals are standard colliders, not triggers.
@@ -171,6 +176,7 @@ public class BallBehavior : MonoBehaviour
         }
     }
 
+    //Define the ball moviment according with where the ball collided on player and which player
     private BallMoviments SetBallMoviment(float hitPoint, float collisionH, string player)
     {
         float collisionHeight = collisionH / 2;
@@ -199,6 +205,7 @@ public class BallBehavior : MonoBehaviour
         return player == "Player1" ? BallMoviments.STRAIGHTRIGHT : BallMoviments.STRAIGHTLEFT;
     }
 
+    //Get the point where the ball hit the player
     private float GetHitPointHeight(Transform gameObj)
     {
         float hitPoint, yDistance;
@@ -219,6 +226,6 @@ public class BallBehavior : MonoBehaviour
 
     public void RestartSpeed()
     {
-        speed = startSpeed;
+        increaseSpeedRate = startSpeed;
     }
 }

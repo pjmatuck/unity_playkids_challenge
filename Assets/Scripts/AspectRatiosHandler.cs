@@ -4,6 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/*
+ * Adjust game elements in x position and scale
+ * in order to keep the gameplay consistent for
+ * different Aspect Ratios.
+ */
 public class AspectRatiosHandler : MonoBehaviour
 {
     private const float aspectRatioReference = 16f / 9f;
@@ -20,6 +25,7 @@ public class AspectRatiosHandler : MonoBehaviour
         newAspectRatio = (float)Screen.width / (float)Screen.height;
         Debug.Log("Screen -> " + "Width: " + Screen.width + " Height: " + Screen.height + " | Ratio: " + newAspectRatio);
 
+        //Round the aspect ratio value for 2 decimal points in order to compare.
         if (decimal.Round(Convert.ToDecimal(newAspectRatio),2) != decimal.Round(Convert.ToDecimal(aspectRatioReference), 2))
         {
             adjustFactor = newAspectRatio / aspectRatioReference;

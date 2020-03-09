@@ -866,6 +866,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ball
       objectReference: {fileID: 0}
+    - target: {fileID: 8303332500139265117, guid: b5bc67f84879db549a2899af0d6ca7f9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 902142937576539410, guid: b5bc67f84879db549a2899af0d6ca7f9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -920,6 +925,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8869082626561071027, guid: b5bc67f84879db549a2899af0d6ca7f9,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5bc67f84879db549a2899af0d6ca7f9, type: 3}
@@ -1250,6 +1260,7 @@ MonoBehaviour:
   righGoal: {fileID: 118375985}
   leftGoal: {fileID: 655339982}
   ballSpawner: {fileID: 1570873142}
+  scoreBlinkingTime: 0.1
   pressStartPanel: {fileID: 2078047947}
   endGamePanel: {fileID: 833541011}
   p1Score: {fileID: 675464860}
@@ -1463,7 +1474,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiManager: {fileID: 1153337311}
   ballSpawner: {fileID: 1570873142}
-  pointToEndGame: 2
+  pointToEndGame: 5
   waitTimeForEndGame: 0.7
 --- !u!4 &1264813035
 Transform:
